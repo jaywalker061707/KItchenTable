@@ -25,6 +25,10 @@ create table households (
   created_at timestamptz not null default now()
 );
 
+-- Case-insensitive uniqueness, enforced at the database level so a race
+-- between two simultaneous signups can't create a duplicate household name.
+create unique index households_name_unique_idx on households (lower(name));
+
 create table household_members (
   id uuid primary key default gen_random_uuid(),
   household_id uuid not null references households (id) on delete cascade,

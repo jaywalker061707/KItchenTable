@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 import { loginAction, type LoginState } from "./actions";
 
 const initialState: LoginState = {};
@@ -62,6 +63,13 @@ export default function LoginPage() {
         >
           {isPending ? "Signing in..." : "Sign in"}
         </button>
+
+        <Link
+          href="/signup"
+          className="text-center text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+        >
+          Need a household? Create one
+        </Link>
       </form>
     </div>
   );
