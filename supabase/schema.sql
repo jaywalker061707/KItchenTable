@@ -8,11 +8,13 @@
 --      records which household contributed it, but no household owns it —
 --      any household can browse, favorite, or plan a dinner around it.
 --
--- This has not been run against a live Supabase project yet. Row Level
--- Security is intentionally left as a TODO below — PIN-based household
--- access doesn't map to Supabase's default auth.uid() model, so how RLS
--- enforces "only this household can see its own groceries" is a decision
--- to make before this goes live, not something to guess at silently here.
+-- Row Level Security: every table has RLS enabled with zero policies (see
+-- the bottom of this file). PIN-based household auth doesn't map to
+-- Supabase's auth.uid() model, so instead of RLS policies, the Next.js
+-- server verifies a signed session cookie and queries with the
+-- service_role key (which bypasses RLS), scoping every query to the
+-- session's household_id in application code. The publishable (anon) key
+-- gets no direct table access, by design.
 
 create extension if not exists "pgcrypto";
 
@@ -92,9 +94,11 @@ create table prep_batches (
   created_at timestamptz not null default now()
 );
 
--- TODO before going live: enable RLS on every table above and decide how
--- a PIN-verified household session proves "household_id = X" to Postgres
--- (options include: Supabase anonymous auth with a custom JWT claim, or a
--- server-side session cookie checked in a Next.js API route in front of
--- every query). Until that's decided, do not expose the anon key with
--- direct table access from the browser.
+alter table households enable row level security;
+alter table household_members enable row level security;
+alter table recipes enable row level security;
+alter table recipe_favorites enable row level security;
+alter table meal_plan_entries enable row level security;
+alter table grocery_items enable row level security;
+alter table freezer_items enable row level security;
+alter table prep_batches enable row level security;

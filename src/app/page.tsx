@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { requireSession } from "@/lib/auth/require-session";
+import { HouseholdHeader } from "@/components/household-header";
 
 const modules = [
   {
@@ -28,17 +30,20 @@ const modules = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const session = await requireSession();
+
   return (
     <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
       <main className="flex w-full max-w-3xl flex-col gap-10">
+        <HouseholdHeader householdName={session.householdName} />
+
         <div className="flex flex-col gap-2 text-center sm:text-left">
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
             Kitchen Table
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            This project is scaffolded, not built yet. Each module below is a
-            placeholder.
+            Signed in and ready. Each module below is still a placeholder.
           </p>
         </div>
 
