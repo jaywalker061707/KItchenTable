@@ -12,6 +12,7 @@ export default function SignupPage() {
     initialState,
   );
   const [timezone, setTimezone] = useState("");
+  const [extraMembers, setExtraMembers] = useState<string[]>([]);
 
   useEffect(() => {
     // The browser's timezone isn't knowable during server rendering, so
@@ -48,6 +49,44 @@ export default function SignupPage() {
             className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-zinc-950 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
           />
         </label>
+
+        <div className="flex flex-col gap-2">
+          <span className="text-sm text-zinc-700 dark:text-zinc-300">
+            Other household members{" "}
+            <span className="text-zinc-400 dark:text-zinc-500">
+              (optional — can add more later)
+            </span>
+          </span>
+          {extraMembers.map((_, index) => (
+            <div key={index} className="flex gap-2">
+              <input
+                name="additionalMemberName"
+                type="text"
+                autoComplete="off"
+                className="flex-1 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+              />
+              <button
+                type="button"
+                onClick={() =>
+                  setExtraMembers((prev) =>
+                    prev.filter((_, i) => i !== index),
+                  )
+                }
+                className="px-2 text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+                aria-label="Remove this member"
+              >
+                ×
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setExtraMembers((prev) => [...prev, ""])}
+            className="text-left text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+          >
+            + Add another member
+          </button>
+        </div>
 
         <label className="flex flex-col gap-1 text-sm text-zinc-700 dark:text-zinc-300">
           Household name

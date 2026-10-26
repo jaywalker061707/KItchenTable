@@ -7,6 +7,8 @@ const SESSION_DURATION = "30d";
 export type Session = {
   householdId: string;
   householdName: string;
+  memberId?: string;
+  memberName?: string;
 };
 
 function getSecretKey() {
@@ -36,10 +38,17 @@ export async function verifySessionToken(
     ) {
       return null;
     }
-    return {
+    const session: Session = {
       householdId: payload.householdId,
       householdName: payload.householdName,
     };
+    if (typeof payload.memberId === "string") {
+      session.memberId = payload.memberId;
+    }
+    if (typeof payload.memberName === "string") {
+      session.memberName = payload.memberName;
+    }
+    return session;
   } catch {
     return null;
   }
@@ -67,4 +76,17 @@ export async function getSession(): Promise<Session | null> {
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;
   return verifySessionToken(token);
+}
+
+export async function setSessionMember(member: { id: string; name: string }) {
+  const current = await getSession();
+  if (!current) {
+    throw new Error("No active household session.");
+  }
+  await setSessionCookie({
+    householdId: current.householdId,
+    householdName: current.householdName,
+    memberId: member.id,
+    memberName: member.name,
+  });
 }

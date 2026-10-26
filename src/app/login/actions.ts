@@ -38,5 +38,5 @@ export async function loginAction(
     householdId: household.id,
     householdName: household.name,
   });
-  redirect("/");
+  redirect("/select-member");
 }

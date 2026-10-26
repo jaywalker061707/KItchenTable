@@ -3,7 +3,7 @@
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { setSessionCookie } from "@/lib/auth/session";
+import { setSessionMember, setSessionCookie } from "@/lib/auth/session";
 
 export type SignupState = { error?: string };
 
@@ -69,18 +69,34 @@ export async function signupAction(
     return { error: "Something went wrong creating the household." };
   }
 
-  const { error: memberError } = await supabase
+  const { data: creator, error: memberError } = await supabase
     .from("household_members")
-    .insert({ household_id: household.id, display_name: memberName });
+    .insert({ household_id: household.id, display_name: memberName })
+    .select("id, display_name")
+    .single();
 
-  if (memberError) {
-    // The household itself was created successfully; a failure to record
-    // the first member's name isn't worth blocking signup over.
+  if (memberError || !creator) {
+    return { error: "Something went wrong adding you as a member." };
+  }
+
+  const additionalNames = formData
+    .getAll("additionalMemberName")
+    .map((value) => String(value).trim())
+    .filter((name) => name.length > 0);
+
+  if (additionalNames.length > 0) {
+    await supabase.from("household_members").insert(
+      additionalNames.map((name) => ({
+        household_id: household.id,
+        display_name: name,
+      })),
+    );
   }
 
   await setSessionCookie({
     householdId: household.id,
     householdName: household.name,
   });
+  await setSessionMember({ id: creator.id, name: creator.display_name });
   redirect("/");
 }
