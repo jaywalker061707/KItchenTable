@@ -67,9 +67,7 @@ export async function signupAction(
       return { error: "That household name is already taken." };
     }
     console.error("signup: household insert failed", error);
-    return {
-      error: `Something went wrong creating the household. (${error.message})`,
-    };
+    return { error: "Something went wrong creating the household." };
   }
 
   const { data: creator, error: memberError } = await supabase
@@ -80,9 +78,7 @@ export async function signupAction(
 
   if (memberError || !creator) {
     console.error("signup: member insert failed", memberError);
-    return {
-      error: `Something went wrong adding you as a member. (${memberError?.message ?? "no row returned"})`,
-    };
+    return { error: "Something went wrong adding you as a member." };
   }
 
   const additionalNames = formData

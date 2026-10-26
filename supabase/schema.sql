@@ -107,3 +107,13 @@ alter table meal_plan_entries enable row level security;
 alter table grocery_items enable row level security;
 alter table freezer_items enable row level security;
 alter table prep_batches enable row level security;
+
+-- If "Automatically expose new tables" was off during project setup
+-- (recommended — see the RLS note above), the service_role key needs
+-- these grants explicitly. It already bypasses RLS, but still needs
+-- table-level grants to touch anything at all.
+grant usage on schema public to service_role;
+grant all on all tables in schema public to service_role;
+grant all on all sequences in schema public to service_role;
+alter default privileges in schema public grant all on tables to service_role;
+alter default privileges in schema public grant all on sequences to service_role;
