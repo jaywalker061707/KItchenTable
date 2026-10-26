@@ -58,7 +58,7 @@ export default async function ThisWeekPage({
   const todayStr = todayInTimezone(timezone);
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
+    <div className="flex flex-1 flex-col items-center bg-ghost px-6 py-16 dark:bg-void">
       <main className="flex w-full max-w-3xl flex-col gap-6">
         <HouseholdHeader
           householdName={session.householdName}
@@ -66,17 +66,17 @@ export default async function ThisWeekPage({
         />
         <Link
           href="/"
-          className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="text-sm text-muted hover:text-ink dark:hover:text-ghost"
         >
           &larr; Back
         </Link>
 
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <h1 className="text-2xl font-semibold text-zinc-950 dark:text-zinc-50">
+            <h1 className="text-2xl font-display text-ink dark:text-ghost">
               This Week
             </h1>
-            <span className="text-xs text-zinc-500 dark:text-zinc-400">
+            <span className="text-xs text-muted dark:text-iris">
               {formatDayLabel(days[0])} &ndash;{" "}
               {formatDayLabel(days[days.length - 1])}
             </span>
@@ -84,13 +84,13 @@ export default async function ThisWeekPage({
           <div className="flex gap-3 text-sm">
             <Link
               href={`/this-week?start=${prevStart}`}
-              className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+              className="text-muted hover:text-ink dark:hover:text-ghost"
             >
               &larr; Prev
             </Link>
             <Link
               href={`/this-week?start=${nextStart}`}
-              className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+              className="text-muted hover:text-ink dark:hover:text-ghost"
             >
               Next &rarr;
             </Link>
@@ -106,17 +106,17 @@ export default async function ThisWeekPage({
             return (
               <div
                 key={dateStr}
-                className={`rounded-xl border bg-white p-4 dark:bg-zinc-950 ${
+                className={`rounded-xl border bg-linen p-4 dark:bg-plum ${
                   isToday
-                    ? "border-zinc-400 dark:border-zinc-500"
-                    : "border-zinc-200 dark:border-zinc-800"
+                    ? "border-signal dark:border-signal"
+                    : "border-hairline dark:border-hairline-dark"
                 }`}
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
+                  <span className="text-sm font-medium text-ink dark:text-ghost">
                     {formatDayLabel(date)}
                     {isToday && (
-                      <span className="ml-2 text-xs font-normal text-zinc-500 dark:text-zinc-400">
+                      <span className="ml-2 text-xs font-normal text-muted dark:text-iris">
                         Today
                       </span>
                     )}
@@ -142,18 +142,18 @@ export default async function ThisWeekPage({
                     type="text"
                     defaultValue={entry?.meal_name ?? ""}
                     placeholder="Open night"
-                    className="flex-1 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+                    className="flex-1 rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
                   />
                   <input
                     name="note"
                     type="text"
                     defaultValue={entry?.note ?? ""}
                     placeholder="Note (side, missing ingredient...)"
-                    className="flex-1 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+                    className="flex-1 rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
                   />
                   <button
                     type="submit"
-                    className="rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950"
+                    className="rounded-md bg-signal px-3 py-2 text-sm font-medium text-ghost hover:opacity-90"
                   >
                     Save
                   </button>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireMember } from "@/lib/auth/require-session";
 import { HouseholdHeader } from "@/components/household-header";
+import { Logo } from "@/components/logo";
 
 const modules = [
   {
@@ -34,18 +35,16 @@ export default async function Home() {
   const session = await requireMember();
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
+    <div className="flex flex-1 flex-col items-center bg-ghost px-6 py-16 dark:bg-void">
       <main className="flex w-full max-w-3xl flex-col gap-10">
         <HouseholdHeader
           householdName={session.householdName}
           memberName={session.memberName}
         />
 
-        <div className="flex flex-col gap-2 text-center sm:text-left">
-          <h1 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
-            Kitchen Table
-          </h1>
-          <p className="text-zinc-600 dark:text-zinc-400">
+        <div className="flex flex-col gap-2">
+          <Logo className="justify-center sm:justify-start" />
+          <p className="text-center text-muted dark:text-iris sm:text-left">
             Signed in and ready.
           </p>
         </div>
@@ -55,12 +54,12 @@ export default async function Home() {
             <Link
               key={mod.href}
               href={mod.href}
-              className="flex flex-col gap-1 rounded-xl border border-zinc-200 bg-white p-5 transition-colors hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600"
+              className="flex flex-col gap-1 rounded-xl border border-hairline bg-linen p-5 transition-colors hover:border-signal dark:border-hairline-dark dark:bg-plum dark:hover:border-signal"
             >
-              <span className="font-medium text-zinc-950 dark:text-zinc-50">
+              <span className="font-medium text-ink dark:text-ghost">
                 {mod.title}
               </span>
-              <span className="text-sm text-zinc-600 dark:text-zinc-400">
+              <span className="text-sm text-muted dark:text-iris">
                 {mod.description}
               </span>
             </Link>

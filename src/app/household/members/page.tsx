@@ -16,7 +16,7 @@ export default async function MembersPage() {
     .order("created_at", { ascending: true });
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
+    <div className="flex flex-1 flex-col items-center bg-ghost px-6 py-16 dark:bg-void">
       <main className="flex w-full max-w-md flex-col gap-6">
         <HouseholdHeader
           householdName={session.householdName}
@@ -24,27 +24,27 @@ export default async function MembersPage() {
         />
         <Link
           href="/"
-          className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="text-sm text-muted hover:text-ink dark:hover:text-ghost"
         >
           &larr; Back
         </Link>
 
         <div className="flex flex-col gap-1">
-          <h1 className="text-xl font-semibold text-zinc-950 dark:text-zinc-50">
+          <h1 className="text-xl font-display text-ink dark:text-ghost">
             Household members
           </h1>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="text-sm text-muted dark:text-iris">
             Add or remove people as they move in or out.
           </p>
         </div>
 
-        <div className="flex flex-col divide-y divide-zinc-200 rounded-xl border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+        <div className="flex flex-col divide-y divide-hairline rounded-xl border border-hairline dark:divide-hairline-dark dark:border-hairline-dark">
           {(members ?? []).map((member) => (
             <div
               key={member.id}
               className="flex items-center justify-between px-4 py-3"
             >
-              <span className="text-zinc-950 dark:text-zinc-50">
+              <span className="text-ink dark:text-ghost">
                 {member.display_name}
               </span>
               <form action={removeMemberAction.bind(null, member.id)}>
@@ -58,7 +58,7 @@ export default async function MembersPage() {
             </div>
           ))}
           {(!members || members.length === 0) && (
-            <p className="px-4 py-3 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="px-4 py-3 text-sm text-muted dark:text-iris">
               No members yet.
             </p>
           )}

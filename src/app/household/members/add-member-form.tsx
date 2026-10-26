@@ -14,16 +14,16 @@ export function AddMemberForm() {
   return (
     <form
       action={formAction}
-      className="flex flex-col gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950"
+      className="flex flex-col gap-2 rounded-xl border border-hairline bg-linen p-4 dark:border-hairline-dark dark:bg-plum"
     >
-      <label className="flex flex-col gap-1 text-sm text-zinc-700 dark:text-zinc-300">
+      <label className="flex flex-col gap-1 text-sm text-ink dark:text-ghost">
         Add a member
         <input
           name="displayName"
           type="text"
           required
           autoComplete="off"
-          className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+          className="rounded-md border border-hairline bg-transparent px-3 py-2 text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
         />
       </label>
 
@@ -36,7 +36,7 @@ export function AddMemberForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-zinc-50 transition-opacity disabled:opacity-60 dark:bg-zinc-50 dark:text-zinc-950"
+        className="rounded-md bg-signal px-3 py-2 text-sm font-medium text-ghost transition-opacity hover:opacity-90 disabled:opacity-60"
       >
         {isPending ? "Adding..." : "Add member"}
       </button>

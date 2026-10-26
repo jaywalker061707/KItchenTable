@@ -59,7 +59,7 @@ export default async function RecipesPage({
   });
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
+    <div className="flex flex-1 flex-col items-center bg-ghost px-6 py-16 dark:bg-void">
       <main className="flex w-full max-w-3xl flex-col gap-6">
         <HouseholdHeader
           householdName={session.householdName}
@@ -67,35 +67,35 @@ export default async function RecipesPage({
         />
         <Link
           href="/"
-          className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="text-sm text-muted hover:text-ink dark:hover:text-ghost"
         >
           &larr; Back
         </Link>
 
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-zinc-950 dark:text-zinc-50">
+          <h1 className="text-2xl font-display text-ink dark:text-ghost">
             Recipes
           </h1>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="text-sm text-muted dark:text-iris">
             Shared across every household — not just this one.
           </p>
         </div>
 
         <form
           method="get"
-          className="flex flex-col gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 sm:flex-row sm:flex-wrap sm:items-center"
+          className="flex flex-col gap-2 rounded-xl border border-hairline bg-linen p-4 dark:border-hairline-dark dark:bg-plum sm:flex-row sm:flex-wrap sm:items-center"
         >
           <input
             name="q"
             type="text"
             defaultValue={q ?? ""}
             placeholder="Search by name..."
-            className="flex-1 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+            className="flex-1 rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
           />
           <select
             name="tag"
             defaultValue={tag ?? ""}
-            className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+            className="rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
           >
             <option value="">All tags</option>
             {allTags.map((t) => (
@@ -104,7 +104,7 @@ export default async function RecipesPage({
               </option>
             ))}
           </select>
-          <label className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+          <label className="flex items-center gap-2 text-sm text-ink dark:text-ghost">
             <input
               type="checkbox"
               name="favorites"
@@ -116,22 +116,22 @@ export default async function RecipesPage({
           </label>
           <button
             type="submit"
-            className="rounded-md border border-zinc-300 px-3 py-2 text-sm text-zinc-700 hover:border-zinc-500 dark:border-zinc-700 dark:text-zinc-300"
+            className="rounded-md border border-hairline px-3 py-2 text-sm text-ink hover:border-signal dark:border-hairline-dark dark:text-ghost"
           >
             Filter
           </button>
           {(q || tag || favoritesOnly) && (
             <Link
               href="/recipes"
-              className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+              className="text-sm text-muted hover:text-ink dark:hover:text-ghost"
             >
               Clear
             </Link>
           )}
         </form>
 
-        <details className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
-          <summary className="cursor-pointer text-sm font-medium text-zinc-950 dark:text-zinc-50">
+        <details className="rounded-xl border border-hairline bg-linen p-4 dark:border-hairline-dark dark:bg-plum">
+          <summary className="cursor-pointer text-sm font-medium text-ink dark:text-ghost">
             Add a recipe
           </summary>
           <form
@@ -143,35 +143,35 @@ export default async function RecipesPage({
               type="text"
               required
               placeholder="Title"
-              className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+              className="rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
             />
             <input
               name="sourceUrl"
               type="url"
               placeholder="Source link (optional)"
-              className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+              className="rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
             />
             <input
               name="tags"
               type="text"
               placeholder="Tags, comma separated (e.g. freezer-friendly, dessert)"
-              className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+              className="rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
             />
             <textarea
               name="ingredients"
               rows={4}
               placeholder={"Ingredients, one per line"}
-              className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+              className="rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
             />
             <textarea
               name="instructions"
               rows={4}
               placeholder={"Instructions, one step per line"}
-              className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+              className="rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
             />
             <button
               type="submit"
-              className="self-start rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950"
+              className="self-start rounded-md bg-signal px-3 py-2 text-sm font-medium text-ghost hover:opacity-90"
             >
               Save recipe
             </button>
@@ -187,15 +187,15 @@ export default async function RecipesPage({
             return (
               <div
                 key={recipe.id}
-                className="flex flex-col gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950"
+                className="flex flex-col gap-2 rounded-xl border border-hairline bg-linen p-4 dark:border-hairline-dark dark:bg-plum"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex flex-col">
-                    <span className="font-medium text-zinc-950 dark:text-zinc-50">
+                    <span className="font-medium text-ink dark:text-ghost">
                       {recipe.title}
                     </span>
                     {recipe.created_by_member_name && (
-                      <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                      <span className="text-xs text-muted dark:text-iris">
                         Added by {recipe.created_by_member_name}
                       </span>
                     )}
@@ -211,8 +211,8 @@ export default async function RecipesPage({
                         }
                         className={
                           isFavorited
-                            ? "text-lg text-amber-500"
-                            : "text-lg text-zinc-300 hover:text-amber-500 dark:text-zinc-700"
+                            ? "text-lg text-signal"
+                            : "text-lg text-muted/40 hover:text-signal"
                         }
                       >
                         ★
@@ -236,7 +236,7 @@ export default async function RecipesPage({
                     {recipe.tags.map((t) => (
                       <span
                         key={t}
-                        className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-900 dark:text-zinc-400"
+                        className="rounded-full bg-linen px-2 py-0.5 text-xs text-muted dark:bg-plum dark:text-iris"
                       >
                         {t}
                       </span>
@@ -249,7 +249,7 @@ export default async function RecipesPage({
                     href={recipe.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-zinc-500 underline hover:text-zinc-900 dark:hover:text-zinc-100"
+                    className="text-xs text-muted underline hover:text-ink dark:hover:text-ghost"
                   >
                     Source
                   </a>
@@ -258,19 +258,19 @@ export default async function RecipesPage({
                 {(recipe.ingredients.length > 0 ||
                   recipe.instructions.length > 0) && (
                   <details>
-                    <summary className="cursor-pointer text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                    <summary className="cursor-pointer text-sm text-muted hover:text-ink dark:text-iris dark:hover:text-ghost">
                       Ingredients &amp; instructions
                     </summary>
                     <div className="mt-2 flex flex-col gap-3 text-sm">
                       {recipe.ingredients.length > 0 && (
-                        <ul className="list-inside list-disc text-zinc-700 dark:text-zinc-300">
+                        <ul className="list-inside list-disc text-ink dark:text-ghost">
                           {recipe.ingredients.map((ingredient, i) => (
                             <li key={i}>{ingredient}</li>
                           ))}
                         </ul>
                       )}
                       {recipe.instructions.length > 0 && (
-                        <ol className="list-inside list-decimal text-zinc-700 dark:text-zinc-300">
+                        <ol className="list-inside list-decimal text-ink dark:text-ghost">
                           {recipe.instructions.map((step, i) => (
                             <li key={i}>{step}</li>
                           ))}
@@ -283,7 +283,7 @@ export default async function RecipesPage({
             );
           })}
           {recipes.length === 0 && (
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-muted dark:text-iris">
               {allRecipes.length === 0
                 ? "No recipes yet — add the first one above."
                 : "No matches."}

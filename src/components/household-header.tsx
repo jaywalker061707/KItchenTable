@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { signOutAction } from "@/lib/auth/actions";
+import { KitchenTableMark } from "./kitchen-table-mark";
 
 export function HouseholdHeader({
   householdName,
@@ -9,32 +10,35 @@ export function HouseholdHeader({
   memberName?: string;
 }) {
   return (
-    <div className="flex w-full flex-wrap items-center justify-between gap-3 border-b border-zinc-200 pb-4 dark:border-zinc-800">
-      <div className="flex flex-col">
-        <span className="text-xs text-zinc-500 dark:text-zinc-400">
-          {householdName}
-        </span>
-        <span className="font-medium text-zinc-950 dark:text-zinc-50">
-          {memberName ?? "Signed in"}
-        </span>
+    <div className="flex w-full flex-wrap items-center justify-between gap-3 border-b border-hairline pb-4 dark:border-hairline-dark">
+      <div className="flex items-center gap-2">
+        <KitchenTableMark className="h-5 w-5 shrink-0 text-signal" />
+        <div className="flex flex-col">
+          <span className="text-xs text-muted dark:text-iris">
+            {householdName}
+          </span>
+          <span className="font-medium text-ink dark:text-ghost">
+            {memberName ?? "Signed in"}
+          </span>
+        </div>
       </div>
-      <div className="flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+      <div className="flex items-center gap-4 text-sm text-muted dark:text-iris">
         <Link
           href="/select-member"
-          className="hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="hover:text-ink dark:hover:text-ghost"
         >
           Switch
         </Link>
         <Link
           href="/household/members"
-          className="hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="hover:text-ink dark:hover:text-ghost"
         >
           Members
         </Link>
         <form action={signOutAction}>
           <button
             type="submit"
-            className="hover:text-zinc-900 dark:hover:text-zinc-100"
+            className="hover:text-ink dark:hover:text-ghost"
           >
             Sign out
           </button>

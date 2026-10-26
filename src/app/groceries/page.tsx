@@ -36,7 +36,7 @@ export default async function GroceriesPage() {
   const stores = Array.from(byStore.keys()).sort();
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
+    <div className="flex flex-1 flex-col items-center bg-ghost px-6 py-16 dark:bg-void">
       <main className="flex w-full max-w-3xl flex-col gap-6">
         <HouseholdHeader
           householdName={session.householdName}
@@ -44,18 +44,18 @@ export default async function GroceriesPage() {
         />
         <Link
           href="/"
-          className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="text-sm text-muted hover:text-ink dark:hover:text-ghost"
         >
           &larr; Back
         </Link>
 
-        <h1 className="text-2xl font-semibold text-zinc-950 dark:text-zinc-50">
+        <h1 className="text-2xl font-display text-ink dark:text-ghost">
           Groceries
         </h1>
 
         <form
           action={addGroceryItemAction}
-          className="flex flex-col gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 sm:flex-row"
+          className="flex flex-col gap-2 rounded-xl border border-hairline bg-linen p-4 dark:border-hairline-dark dark:bg-plum sm:flex-row"
         >
           <input
             name="store"
@@ -63,7 +63,7 @@ export default async function GroceriesPage() {
             list="store-options"
             required
             placeholder="Store"
-            className="w-full rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50 sm:w-36"
+            className="w-full rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost sm:w-36"
           />
           <datalist id="store-options">
             {stores.map((store) => (
@@ -75,24 +75,24 @@ export default async function GroceriesPage() {
             type="text"
             required
             placeholder="Item"
-            className="flex-1 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+            className="flex-1 rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
           />
           <input
             name="quantity"
             type="text"
             placeholder="Qty (optional)"
-            className="w-full rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50 sm:w-28"
+            className="w-full rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost sm:w-28"
           />
           <button
             type="submit"
-            className="rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950"
+            className="rounded-md bg-signal px-3 py-2 text-sm font-medium text-ghost hover:opacity-90"
           >
             Add
           </button>
         </form>
 
         {stores.length === 0 && (
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-muted dark:text-iris">
             Nothing on the list yet.
           </p>
         )}
@@ -100,10 +100,10 @@ export default async function GroceriesPage() {
         <div className="flex flex-col gap-6">
           {stores.map((store) => (
             <div key={store} className="flex flex-col gap-2">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted dark:text-iris">
                 {store}
               </h2>
-              <div className="flex flex-col divide-y divide-zinc-200 rounded-xl border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+              <div className="flex flex-col divide-y divide-hairline rounded-xl border border-hairline dark:divide-hairline-dark dark:border-hairline-dark">
                 {byStore.get(store)!.map((item) => (
                   <div
                     key={item.id}
@@ -126,8 +126,8 @@ export default async function GroceriesPage() {
                           }
                           className={`flex h-5 w-5 items-center justify-center rounded border text-xs ${
                             item.status === "received"
-                              ? "border-zinc-900 bg-zinc-900 text-zinc-50 dark:border-zinc-50 dark:bg-zinc-50 dark:text-zinc-950"
-                              : "border-zinc-400 dark:border-zinc-600"
+                              ? "border-signal bg-signal text-ghost"
+                              : "border-muted dark:border-iris"
                           }`}
                         >
                           {item.status === "received" ? "✓" : ""}
@@ -135,9 +135,9 @@ export default async function GroceriesPage() {
                       </form>
                       <div className="flex flex-col">
                         <span
-                          className={`text-sm text-zinc-950 dark:text-zinc-50 ${
+                          className={`text-sm text-ink dark:text-ghost ${
                             item.status === "received"
-                              ? "text-zinc-400 line-through dark:text-zinc-600"
+                              ? "text-muted line-through"
                               : ""
                           }`}
                         >
@@ -145,7 +145,7 @@ export default async function GroceriesPage() {
                           {item.quantity ? ` — ${item.quantity}` : ""}
                         </span>
                         {item.status === "out_of_stock" && (
-                          <span className="text-xs text-amber-600 dark:text-amber-400">
+                          <span className="text-xs text-signal dark:text-iris">
                             Out of stock
                           </span>
                         )}
@@ -162,7 +162,7 @@ export default async function GroceriesPage() {
                         >
                           <button
                             type="submit"
-                            className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+                            className="text-muted hover:text-ink dark:hover:text-ghost"
                           >
                             Out of stock
                           </button>
@@ -177,7 +177,7 @@ export default async function GroceriesPage() {
                         >
                           <button
                             type="submit"
-                            className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+                            className="text-muted hover:text-ink dark:hover:text-ghost"
                           >
                             Back in stock
                           </button>

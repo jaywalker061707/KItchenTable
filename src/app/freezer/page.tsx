@@ -31,7 +31,7 @@ export default async function FreezerPage({
   const { data: items } = await query;
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
+    <div className="flex flex-1 flex-col items-center bg-ghost px-6 py-16 dark:bg-void">
       <main className="flex w-full max-w-3xl flex-col gap-6">
         <HouseholdHeader
           householdName={session.householdName}
@@ -39,12 +39,12 @@ export default async function FreezerPage({
         />
         <Link
           href="/"
-          className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+          className="text-sm text-muted hover:text-ink dark:hover:text-ghost"
         >
           &larr; Back
         </Link>
 
-        <h1 className="text-2xl font-semibold text-zinc-950 dark:text-zinc-50">
+        <h1 className="text-2xl font-display text-ink dark:text-ghost">
           Freezer
         </h1>
 
@@ -54,18 +54,18 @@ export default async function FreezerPage({
             type="text"
             defaultValue={search}
             placeholder="Search the freezer..."
-            className="flex-1 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+            className="flex-1 rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
           />
           <button
             type="submit"
-            className="rounded-md border border-zinc-300 px-3 py-2 text-sm text-zinc-700 hover:border-zinc-500 dark:border-zinc-700 dark:text-zinc-300"
+            className="rounded-md border border-hairline px-3 py-2 text-sm text-ink hover:border-signal dark:border-hairline-dark dark:text-ghost"
           >
             Search
           </button>
           {search && (
             <Link
               href="/freezer"
-              className="flex items-center text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+              className="flex items-center text-sm text-muted hover:text-ink dark:hover:text-ghost"
             >
               Clear
             </Link>
@@ -74,21 +74,21 @@ export default async function FreezerPage({
 
         <form
           action={addFreezerItemAction}
-          className="flex flex-col gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 sm:flex-row sm:flex-wrap"
+          className="flex flex-col gap-2 rounded-xl border border-hairline bg-linen p-4 dark:border-hairline-dark dark:bg-plum sm:flex-row sm:flex-wrap"
         >
           <input
             name="name"
             type="text"
             required
             placeholder="Item"
-            className="flex-1 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+            className="flex-1 rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
           />
           <input
             name="label"
             type="text"
             list="label-options"
             placeholder="Label (optional)"
-            className="w-full rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50 sm:w-40"
+            className="w-full rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost sm:w-40"
           />
           <datalist id="label-options">
             <option value="prepared" />
@@ -100,7 +100,7 @@ export default async function FreezerPage({
             name="location"
             type="text"
             placeholder="Location (optional)"
-            className="w-full rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50 sm:w-40"
+            className="w-full rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost sm:w-40"
           />
           <input
             name="quantity"
@@ -108,27 +108,27 @@ export default async function FreezerPage({
             min="0"
             step="1"
             defaultValue={1}
-            className="w-20 rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+            className="w-20 rounded-md border border-hairline bg-transparent px-3 py-2 text-sm text-ink outline-none focus:border-signal dark:border-hairline-dark dark:text-ghost"
           />
           <button
             type="submit"
-            className="rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950"
+            className="rounded-md bg-signal px-3 py-2 text-sm font-medium text-ghost hover:opacity-90"
           >
             Add
           </button>
         </form>
 
-        <div className="flex flex-col divide-y divide-zinc-200 rounded-xl border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+        <div className="flex flex-col divide-y divide-hairline rounded-xl border border-hairline dark:divide-hairline-dark dark:border-hairline-dark">
           {(items ?? []).map((item) => (
             <div
               key={item.id}
               className="flex items-center justify-between gap-3 px-4 py-3"
             >
               <div className="flex flex-col">
-                <span className="text-sm text-zinc-950 dark:text-zinc-50">
+                <span className="text-sm text-ink dark:text-ghost">
                   {item.name}
                 </span>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                <span className="text-xs text-muted dark:text-iris">
                   {[item.label, item.location].filter(Boolean).join(" · ")}
                 </span>
               </div>
@@ -137,19 +137,19 @@ export default async function FreezerPage({
                   <button
                     type="submit"
                     aria-label="Decrease quantity"
-                    className="flex h-7 w-7 items-center justify-center rounded-md border border-zinc-300 text-zinc-700 hover:border-zinc-500 dark:border-zinc-700 dark:text-zinc-300"
+                    className="flex h-7 w-7 items-center justify-center rounded-md border border-hairline text-ink hover:border-signal dark:border-hairline-dark dark:text-ghost"
                   >
                     −
                   </button>
                 </form>
-                <span className="w-6 text-center text-sm text-zinc-950 dark:text-zinc-50">
+                <span className="w-6 text-center text-sm text-ink dark:text-ghost">
                   {item.quantity}
                 </span>
                 <form action={adjustFreezerQuantityAction.bind(null, item.id, 1)}>
                   <button
                     type="submit"
                     aria-label="Increase quantity"
-                    className="flex h-7 w-7 items-center justify-center rounded-md border border-zinc-300 text-zinc-700 hover:border-zinc-500 dark:border-zinc-700 dark:text-zinc-300"
+                    className="flex h-7 w-7 items-center justify-center rounded-md border border-hairline text-ink hover:border-signal dark:border-hairline-dark dark:text-ghost"
                   >
                     +
                   </button>
@@ -166,7 +166,7 @@ export default async function FreezerPage({
             </div>
           ))}
           {(!items || items.length === 0) && (
-            <p className="px-4 py-3 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="px-4 py-3 text-sm text-muted dark:text-iris">
               {search ? "No matches." : "Nothing in the freezer yet."}
             </p>
           )}
