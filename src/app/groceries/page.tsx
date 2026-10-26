@@ -34,7 +34,6 @@ export default async function GroceriesPage() {
     byStore.set(item.store, list);
   }
   const stores = Array.from(byStore.keys()).sort();
-  const existingStores = stores;
 
   return (
     <div className="flex flex-1 flex-col items-center bg-zinc-50 px-6 py-16 dark:bg-black">
@@ -67,7 +66,7 @@ export default async function GroceriesPage() {
             className="w-full rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50 sm:w-36"
           />
           <datalist id="store-options">
-            {existingStores.map((store) => (
+            {stores.map((store) => (
               <option key={store} value={store} />
             ))}
           </datalist>

@@ -80,13 +80,17 @@ export async function finishBatchAction(formData: FormData) {
     .eq("household_id", session.householdId);
 
   // Feed the finished batch into the freezer, matching an existing item
-  // by name if there is one rather than creating a duplicate entry.
-  const { data: existingFreezerItem } = await supabase
+  // by name (case-insensitive, exact) if there is one, rather than
+  // creating a duplicate entry. Compared in code rather than via SQL
+  // ilike so a batch name containing % or _ isn't misread as a wildcard.
+  const { data: freezerItems } = await supabase
     .from("freezer_items")
-    .select("id, quantity")
-    .eq("household_id", session.householdId)
-    .ilike("name", batch.name)
-    .maybeSingle();
+    .select("id, name, quantity")
+    .eq("household_id", session.householdId);
+
+  const existingFreezerItem = (freezerItems ?? []).find(
+    (item) => item.name.toLowerCase() === batch.name.toLowerCase(),
+  );
 
   if (existingFreezerItem) {
     await supabase

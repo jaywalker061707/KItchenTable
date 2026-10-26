@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { setSessionCookie } from "@/lib/auth/session";
+import { escapeLikePattern } from "@/lib/text";
 
 export type LoginState = { error?: string };
 
@@ -22,7 +23,7 @@ export async function loginAction(
   const { data: household } = await supabase
     .from("households")
     .select("id, name, pin_hash")
-    .ilike("name", householdName)
+    .ilike("name", escapeLikePattern(householdName))
     .maybeSingle();
 
   if (!household) {

@@ -48,8 +48,13 @@ export default async function ThisWeekPage({
     (entries ?? []).map((entry) => [entry.plan_date, entry]),
   );
 
-  const prevStart = formatISODate(addDays(anchor, -9));
-  const nextStart = formatISODate(addDays(anchor, 9));
+  // Shift by 7, not 9: the anchor is always a Saturday, and the next
+  // Saturday is 7 days later. Each 9-day view deliberately overlaps the
+  // next by one weekend (the shared boundary), so navigation lands on
+  // consecutive Saturdays rather than skipping — a 9-day jump would
+  // overshoot past the next Saturday entirely.
+  const prevStart = formatISODate(addDays(anchor, -7));
+  const nextStart = formatISODate(addDays(anchor, 7));
   const todayStr = todayInTimezone(timezone);
 
   return (

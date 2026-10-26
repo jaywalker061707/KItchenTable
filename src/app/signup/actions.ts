@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { setSessionMember, setSessionCookie } from "@/lib/auth/session";
+import { escapeLikePattern } from "@/lib/text";
 
 export type SignupState = { error?: string };
 
@@ -47,7 +48,7 @@ export async function signupAction(
   const { data: existing } = await supabase
     .from("households")
     .select("id")
-    .ilike("name", householdName)
+    .ilike("name", escapeLikePattern(householdName))
     .maybeSingle();
 
   if (existing) {
