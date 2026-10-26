@@ -22,6 +22,7 @@ create table households (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   pin_hash text not null,
+  timezone text not null default 'UTC',
   created_at timestamptz not null default now()
 );
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
 import { signupAction, type SignupState } from "./actions";
 
@@ -11,6 +11,15 @@ export default function SignupPage() {
     signupAction,
     initialState,
   );
+  const [timezone, setTimezone] = useState("");
+
+  useEffect(() => {
+    // The browser's timezone isn't knowable during server rendering, so
+    // this has to run post-mount — a legitimate use of an effect, not a
+    // derived-state anti-pattern.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  }, []);
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 px-6 py-16 dark:bg-black">
@@ -27,6 +36,18 @@ export default function SignupPage() {
             freezer. Recipes you add are shared with every household.
           </p>
         </div>
+
+        <label className="flex flex-col gap-1 text-sm text-zinc-700 dark:text-zinc-300">
+          Your name
+          <input
+            name="memberName"
+            type="text"
+            required
+            autoComplete="off"
+            placeholder="So the household knows who added what"
+            className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-zinc-950 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+          />
+        </label>
 
         <label className="flex flex-col gap-1 text-sm text-zinc-700 dark:text-zinc-300">
           Household name
@@ -61,6 +82,21 @@ export default function SignupPage() {
             autoComplete="off"
             className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
           />
+        </label>
+
+        <label className="flex flex-col gap-1 text-sm text-zinc-700 dark:text-zinc-300">
+          Timezone
+          <input
+            name="timezone"
+            type="text"
+            value={timezone}
+            onChange={(e) => setTimezone(e.target.value)}
+            autoComplete="off"
+            className="rounded-md border border-zinc-300 bg-transparent px-3 py-2 text-zinc-950 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:text-zinc-50"
+          />
+          <span className="text-xs text-zinc-500 dark:text-zinc-500">
+            Detected automatically — change it if this is wrong.
+          </span>
         </label>
 
         {state.error && (
