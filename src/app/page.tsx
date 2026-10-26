@@ -46,7 +46,7 @@ export default async function Home() {
             Kitchen Table
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            Signed in and ready. Each module below is still a placeholder.
+            Signed in and ready.
           </p>
         </div>
 
