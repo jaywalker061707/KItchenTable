@@ -66,7 +66,10 @@ export async function signupAction(
     if (error.code === POSTGRES_UNIQUE_VIOLATION) {
       return { error: "That household name is already taken." };
     }
-    return { error: "Something went wrong creating the household." };
+    console.error("signup: household insert failed", error);
+    return {
+      error: `Something went wrong creating the household. (${error.message})`,
+    };
   }
 
   const { data: creator, error: memberError } = await supabase
@@ -76,7 +79,10 @@ export async function signupAction(
     .single();
 
   if (memberError || !creator) {
-    return { error: "Something went wrong adding you as a member." };
+    console.error("signup: member insert failed", memberError);
+    return {
+      error: `Something went wrong adding you as a member. (${memberError?.message ?? "no row returned"})`,
+    };
   }
 
   const additionalNames = formData
